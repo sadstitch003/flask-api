@@ -32,9 +32,21 @@ def create_pivot_table(df):
 # -----------------------------
 # Load product ID-to-name mapping
 # -----------------------------
-id_barang = pd.read_csv(os.path.join(DATA_FOLDER, 'IdBarang.csv'))  # ['id', 'product']
+id_barang = pd.read_csv(os.path.join(DATA_FOLDER, 'IdBarang.csv'))  # ['id', 'deskripsi']
 
 def get_product_by_id(product_id):
+/*************  ✨ Windsurf Command ⭐  *************/
+    """
+    Retrieve product description by product ID.
+
+    Args:
+        product_id (int): The ID of the product to retrieve.
+
+    Returns:
+        str or None: The description of the product if found, otherwise None.
+    """
+
+/*******  f8776152-d4b8-46ea-b404-e4c4e5eeed5c  *******/
     try:
         return id_barang.iloc[product_id, 1]
     except (IndexError, ValueError):
@@ -42,9 +54,9 @@ def get_product_by_id(product_id):
 
 def get_id_by_product_name(product_name):
     try:
-        row = id_barang[id_barang['product'] == product_name]
+        row = id_barang[id_barang['deskripsi'] == product_name]
         if not row.empty:
-            return int(row.index[0])
+            return int(row.iloc[0, 0])
     except Exception:
         pass
     return None
@@ -148,5 +160,6 @@ def recommend():
             'recommendations': top_recommendations
         })
 
-    except Exception as e:``
+    except Exception as e:
         return jsonify({'error': str(e)}), 500
+
